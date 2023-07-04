@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <style>
+            .r_tbdr{
+                border:1px dashed #000;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas class="myCanvas d-block mx-auto r_tbdr" width="880" height="653"></canvas>
+        <script>
+            let canvas = document.querySelector('.myCanvas');
+            canvas.width = 880;
+            canvas.height = 654;
+            //get the 2d rendering context
+            var  ctx = canvas.getContext("2d");
+            //create an image element
+            //var object = new className();
+            var imageobject = new Image();
+            // set the source of the imager
+            imageobject.src = "./img/bg.JPG";
+            imageobject.onload = function(){
+                
+                // Draw the image on the canvas
+                 ctx.drawImage(imageobject, 0, 0);
+                
+                // Render the button after the image is drawn
+                renderButton1();
+                renderButton2();
+            };
+            
+            // Define button properties
+            var buttonWidth1 = 100;
+            var buttonHeight1 = 40;
+            var buttonX1 = 200;
+            var buttonY1 = 330;
+
+            var buttonWidth2 = 100;
+            var buttonHeight2 = 40;
+            var buttonX2 = 400;
+            var buttonY2 = 330;
+    
+            // Render button
+            function renderButton1() {
+                ctx.fillStyle = "lightblue";
+                ctx.fillRect(buttonX1, buttonY1, buttonWidth1, buttonHeight1);
+    
+                ctx.fillStyle = "black";
+                ctx.font = "16px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("", buttonX1 + buttonWidth1 / 2, buttonY1 + buttonHeight1 / 2);
+            }
+
+            function renderButton2() {
+                ctx.fillStyle = "rgba(173, 216, 230, 0.5)";
+                ctx.fillRect(buttonX2, buttonY2, buttonWidth2, buttonHeight2);
+    
+                ctx.fillStyle = "rgba(173, 216, 230, 0.5)";
+                ctx.font = "16px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText("", buttonX2 + buttonWidth2 / 2, buttonY2 + buttonHeight2 / 2);
+            }
+            
+            // Check if button is clicked
+            function isButtonClicked(x, y) {
+                return x >= buttonX1 && x <= buttonX1 + buttonWidth1 &&
+                       y >= buttonY1 && y <= buttonY1 + buttonHeight1;
+            }
+            function isButtonClicked2(x, y) {
+                return x >= buttonX2 && x <= buttonX2 + buttonWidth2 &&
+                       y >= buttonY2 && y <= buttonY2 + buttonHeight2;
+            }
+    
+            // Handle click event
+            canvas.addEventListener("click", function(event) {
+                var rect = canvas.getBoundingClientRect();
+                var mouseX = event.clientX - rect.left;
+                var mouseY = event.clientY - rect.top;
+
+                if (isButtonClicked(mouseX, mouseY)) {
+                    alert("Button clicked1!");
+                }
+                if (isButtonClicked2(mouseX, mouseY)) {
+                    alert("Button clicked!2");
+                }
+            });
+
+        </script>
+    </body>
+</html>   
